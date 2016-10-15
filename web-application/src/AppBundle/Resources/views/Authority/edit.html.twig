@@ -1,0 +1,34 @@
+{% extends 'AppBundle::baseAdmin.html.twig' %}
+
+    {% block body -%}
+
+        {% embed 'ZantolovAppBundle:Admin/partials:crudHeader.html.twig'  with { ignoreTabs: ["filters"]} %}
+            {% block entityTitle %}
+                Authority Edit
+            {% endblock %}
+            {% block actionPanel %}
+                <ul class="list-inline">
+                    <li>
+                        <a onclick="$('#appbundle_authority_submit').click();" href="javascript:void(0)"
+                           class="btn btn-success btn-sm">
+                            <i class="fa fa-check"></i> Update
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-primary btn-sm" href="{{ path('admin_authorities.index') }}">
+                            <i class="fa fa-arrow-left"></i> Back to the list
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-primary btn-sm" href="{{ path('admin_authorities.show', {id:entity.id}) }}">
+                            <i class="fa fa-arrow-left"></i> Back to the item
+                        </a>
+                    </li>
+                    <li>{{ form(delete_form) }}</li>
+                </ul>
+            {% endblock %}
+        {% endembed %}
+
+        {{ form(edit_form) }}
+
+    {% endblock %}

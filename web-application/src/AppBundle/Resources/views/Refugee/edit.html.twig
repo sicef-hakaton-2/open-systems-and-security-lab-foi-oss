@@ -1,0 +1,69 @@
+{% extends 'AppBundle::baseAdmin.html.twig' %}
+
+{% block customStylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+{% endblock %}
+
+{% block customJsPlugins -%}
+    {{ parent() }}
+    <script src="{{ asset('bundles/zantolovmedia/js/dropzone.js') }}"></script>
+{% endblock %}
+
+    {% block body -%}
+        {% embed 'ZantolovAppBundle:Admin/partials:crudHeader.html.twig'  with { ignoreTabs: ["filters"]} %}
+            {% block entityTitle %}
+                Refugee Edit
+            {% endblock %}
+            {% block actionPanel %}
+                <ul class="list-inline">
+                    <li>
+                        <a onclick="$('#appbundle_refugee_submit').click();" href="javascript:void(0)"
+                           class="btn btn-success btn-sm">
+                            <i class="fa fa-check"></i> Update
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-primary btn-sm" href="{{ path('admin_refugees.index') }}">
+                            <i class="fa fa-arrow-left"></i> Back to the list
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-primary btn-sm" href="{{ path('admin_refugees.show', {id:entity.id}) }}">
+                            <i class="fa fa-arrow-left"></i> Back to the post
+                        </a>
+                    </li>
+                    <li>{{ form(delete_form) }}</li>
+                </ul>
+            {% endblock %}
+        {% endembed %}
+
+
+        <div class="col-md-push-7 col-md-5">
+            <form action="{{ url('app.image.upload', {id: refugeeId, entityType: 'refugee'}) }}"
+                  method="POST"
+                  class="dropzone"
+                  id="dropzoneForm"></form>
+
+            <script>
+                var functions = window.functions || [];
+                functions.push(function () {
+                    Dropzone.options.dropzoneForm = {
+                        acceptedFiles: "image/*",
+                        maxFileSize: '{{ globalMaxFilesize }}',
+                        init: function () {
+                            this.on('queuecomplete', function () {
+                                window.location.reload();
+                            });
+                        }
+                    };
+                });
+            </script>
+        </div>
+
+        <div class="col-md-pull-5 col-md-7">
+            {{ form(edit_form) }}
+
+        </div>
+
+    {% endblock %}

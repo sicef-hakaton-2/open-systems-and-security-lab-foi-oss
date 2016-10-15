@@ -1,0 +1,49 @@
+{% extends 'AppBundle:Layout:frontAppLayout.html.twig' %}
+
+
+{% block body %}
+    <div class="container text-center">
+
+        <div class="">
+            <h1> #{{ refugee.id }} {{ refugee.firstName }} {{ refugee.lastName }}</h1>
+
+            {% if refugee.images.first is not null %}
+                <div class="image">
+                    <img class="img-responsive img-thumbnail"
+                         src="{{ zantolov_uploader_asset(refugee.images.first, 'imageFile', null, false) | imagine_filter('bigAdminVariation') }}"
+                         alt="">
+                </div>
+
+                <div class="imagesList">
+                    {% for image in refugee.images %}
+                        <img class="img-responsive img-thumbnail"
+                             src="{{ zantolov_uploader_asset(refugee.images.first, 'imageFile', null, false) | imagine_filter('thumb') }}"
+                             alt="">
+                    {% endfor %}
+                </div>
+
+
+            {% endif %}
+
+            <ul class="list-unstyled">
+                <li>
+                    <strong>External ID:</strong> {{ refugee.externalId }}
+                </li>
+                <li>
+                    <strong>Birth date:</strong> {{ refugee.birthDate|date(defaultDateTimeFormat) }}
+                </li>
+                <li>
+                    <strong>Country:</strong> {{ refugee.country }}
+                </li>
+                <li>
+                    <strong>Active:</strong> {{ refugee.active|fontAwesome() }}
+                </li>
+                <li>
+                    <strong>Email:</strong> {{ refugee.user.email }}
+                </li>
+            </ul>
+            {#{{ dump(refugee) }}#}
+        </div>
+
+    </div>
+{% endblock %}

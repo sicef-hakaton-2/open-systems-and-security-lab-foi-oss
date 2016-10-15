@@ -1,0 +1,130 @@
+{% extends 'AppBundle:Layout:frontAppLayout.html.twig' %}
+
+
+{% block body %}
+    <div class="container-fluid" style="">
+        <div style="background: url(http://yalibnan.com/wp-content/uploads/2014/05/image1.jpg) no-repeat center center fixed;width:100%;min-height: 280px"></div>
+    </div>
+
+    <div class="container-fluid blogPost">
+
+    <div class="container">
+        <div class="text-center">
+            <div class="">
+                {% if app.user %}
+                    {% if role is defined and role is not empty %}
+                        <i class="fa fa-4x fa-users"></i><br/>
+                        {% if role == 'refugee' %}
+                            <h1>Refugees - find help easily!</h1>
+                            <a href="{{ url('site.refugees') }}" class="btn btn-primary">
+                                Ask for donations <i class="fa fa-arrow-right"></i>
+                            </a>
+                        {% else %}
+                            <h1>Help others!</h1>
+                            <a href="{{ url('site.citizens') }}" class="btn btn-primary">
+                                Offer help <i class="fa fa-arrow-right"></i>
+                            </a>
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+            </div>
+
+            <br>
+
+            <h2>How Can I help?</h2>
+
+            <p>
+                Lorem Ipsum je jednostavno probni tekst koji se koristi u tiskarskoj i slovoslagarskoj industriji.
+                Lorem Ipsum postoji kao industrijski standard još od 16-og stoljeća, kada je nepoznati tiskar uzeo
+                tiskarsku
+                galiju slova i posložio ih da bi napravio knjigu s uzorkom tiska. Taj je tekst ne samo preživio pet
+                stoljeća,
+            </p>
+            <hr>
+            <h2>Join BorderLess!</h2>
+
+            <p>
+                Lorem Ipsum je jednostavno probni tekst koji se koristi u tiskarskoj i slovoslagarskoj industriji.
+                Lorem Ipsum postoji kao industrijski standard još od 16-og stoljeća, kada je nepoznati tiskar uzeo
+                tiskarsku
+                galiju slova i posložio ih da bi napravio knjigu s uzorkom tiska. Taj je tekst ne samo preživio pet
+                stoljeća,
+            </p>
+            <hr>
+            <h2>How to donate?</h2>
+
+            <p>
+                Lorem Ipsum je jednostavno probni tekst koji se koristi u tiskarskoj i slovoslagarskoj industriji.
+                Lorem Ipsum postoji kao industrijski standard još od 16-og stoljeća, kada je nepoznati tiskar uzeo
+                tiskarsku
+                galiju slova i posložio ih da bi napravio knjigu s uzorkom tiska. Taj je tekst ne samo preživio pet
+                stoljeća,
+            </p>
+
+            <hr>
+            <i class="fa fa-4x fa-star"></i><br/>
+            <hr>
+
+            {% if app.user %}
+                <style>
+                    h3 {
+                        color: #d21996;
+                    }
+                </style>
+                {% if role is defined and role is not empty and data is defined and data is not empty %}
+                    {% if role == 'refugee' %}
+                        <div class="col-md-6">
+                            <h3>Accepted offers</h3>
+                            {% for item in data.acceptedOffers %}
+                                <h4> {{ item.title }}</h4>
+                                <p>{{ item.description }}</p>
+                                <hr>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <h3>Submitted requests</h3>
+                            {% for item in data.submittedRequests %}
+                                <h4>
+                                    {% if item.citizen is not null %} <i class="fa fa-check"></i>{% endif %}
+                                    {{ item.title }}</h4>
+                                <p>{{ item.description }}</p>
+                                <hr>
+                            {% endfor %}
+                        </div>
+
+                    {% else %}
+                        <div class="col-md-6">
+                            <h3>Accepted requests</h3>
+                            {% for item in data.acceptedRequests %}
+                                <h4> {{ item.title }}</h4>
+                                <p>{{ item.description }}</p>
+                                <hr>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Submitted offers</h3>
+                            {% for item in data.submittedOffers %}
+                                <h4>
+                                    {% if item.refugee is not null %} <i class="fa fa-check"></i>{% endif %}
+                                    {{ item.title }}</h4>
+                                <p>{{ item.description }}</p>
+                                <hr>
+                            {% endfor %}
+                        </div>
+
+                    {% endif %}
+                {% endif %}
+
+            {% else %}
+                <hr>
+                <div class="col-md-12 text-center">
+                    <a href="{{ url('fos_user_security_login') }}" id="singlebutton" name="singlebutton"
+                       class="btn btn-material-red btn-raised"> Register now!
+                    </a>
+                </div>
+
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

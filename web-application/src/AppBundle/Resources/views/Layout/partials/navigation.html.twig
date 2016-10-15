@@ -1,0 +1,44 @@
+<div id="mainNavigation">
+
+    <div class="container">
+        <div class="col-md-3">
+            <a id="mainLogo" class="" href="{{ url('homepage') }}">
+                <img src="{{ asset('bundles/app/img/logo.svg') }}" width="50px" height="50px">
+                <span>BorderLess</span>
+            </a>
+        </div>
+
+        <div class="col-md-4 text-center">
+            <form class="navigation-search" action="{{ url('site.search') }}">
+                <input name="query" type="text" class="form-control col-md-12" id="navigation-search-input"
+                       placeholder="Search">
+            </form>
+        </div>
+
+        <div class="col-md-5 text-right">
+
+            <div id="google_translate_element"></div>
+            <script type="text/javascript">
+                function googleTranslateElementInit() {
+                    new google.translate.TranslateElement({
+                        pageLanguage: '{{ app.request.getLocale() }}',
+                        layout: google.translate.TranslateElement.FloatPosition.TOP_LEFT,
+                        multilanguagePage: true
+                    }, 'google_translate_element');
+                }
+            </script>
+            <script type="text/javascript"
+                    src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+            <a href="{{ url('help') }}" class="btn btn-sm btn-primary" id="callToAction">
+                Join <i class="fa fa-arrow-right"></i>
+            </a>
+
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a class="btn btn-sm btn-primary" href="{{ url('fos_user_security_logout') }}">Logout</a>
+            {% else %}
+                <a class="btn btn-sm btn-primary" href="{{ url('fos_user_security_login') }}">Login</a>
+            {% endif %}
+        </div>
+    </div>
+</div>

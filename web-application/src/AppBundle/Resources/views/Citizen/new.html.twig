@@ -1,0 +1,28 @@
+{% extends 'AppBundle::baseAdmin.html.twig' %}
+
+    {% block body -%}
+
+        {% embed 'ZantolovAppBundle:Admin/partials:crudHeader.html.twig'  with { ignoreTabs: ["filters"]} %}
+            {% block entityTitle %}
+                New Citizen
+            {% endblock %}
+            {% block actionPanel %}
+                <ul class="list-inline">
+                    <li>
+                        <a onclick="$('#appbundle_citizen_submit').click();" href="javascript:void(0)"
+                           class="btn btn-success btn-sm">
+                            <i class="fa fa-check"></i> Create
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-primary btn-sm" href="{{ path('admin_citizens.index') }}">
+                            <i class="fa fa-arrow-left"></i> Back to the list
+                        </a>
+                    </li>
+                </ul>
+            {% endblock %}
+        {% endembed %}
+
+        {{ form(form) }}
+
+    {% endblock %}

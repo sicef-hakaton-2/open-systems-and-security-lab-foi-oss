@@ -1,0 +1,42 @@
+{% extends 'AppBundle:Layout:frontAppLayout.html.twig' %}
+
+{% block navigation %}{% endblock %}
+{% block body %}
+    <div class="container-fluid" id="pageMissing">
+
+        <div class="row-centered">
+            <div class="col-centered col-md-12">
+
+                <h2 class="missingTitleMain">
+                    4ø4
+                </h2>
+                <span class="missingTitle">This page is missing</span>
+
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <h4 class="missingTitle">
+                    So Are These People ...
+                </h4>
+                <br>
+                <br>
+
+                <div class="col-centered col-md-12">
+                    {{ render(controller('AppBundle:Site:missing', {limit: 9})) }}
+                    <br>
+                    <br>
+                    <a class="btn btn-material-red btn-raised">Report information to 112!</a>
+                    <br>
+                    <br>
+
+                    <a href="{{ url('homepage') }}">
+                        <img src="{{ asset('bundles/app/img/logo.svg') }}" width="50px" height="50px">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}{% endblock %}

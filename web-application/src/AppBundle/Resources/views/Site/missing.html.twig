@@ -1,0 +1,59 @@
+<div class="bs-example" data-example-id="carousel-with-captions">
+    <div id="carousel-example-captions" class="carousel slide" data-ride="carousel">
+
+        <style>
+            .missingCarousel {
+                width: 100%;
+                max-width: 190px;
+                margin: auto;
+            }
+        </style>
+
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-captions"
+                data-slide-to="0"
+                class="active"></li>
+            <li data-target="#carousel-example-captions" data-slide-to="1"></li>
+            <li data-target="#carousel-example-captions" data-slide-to="2"></li>
+        </ol>
+
+        <div class="carousel-inner" role="listbox">
+            {% set counter = 0 %}
+            {% for item in missing %}
+                {% if counter % 3 == 0 %}
+                    <div class="item {% if counter == 0 %}active{% endif %}">
+                {% endif %}
+                <div class="col-md-4 col-sm-12 text-center">
+                    <a href="mailto:missing@sicef.party?subject=Info about {{ item.firstName }} {{ item.lastName }}">
+                        <img data-src="{{ zantolov_uploader_asset(item.images.first, 'imageFile', null, false) | imagine_filter('bigThumb') }}"
+                             src="{{ zantolov_uploader_asset(item.images.first, 'imageFile', null, false) | imagine_filter('bigThumb') }}"
+                             class="missingCarousel">
+
+                        <div class="carousel-caption">
+                            <h3>{{ item.firstName }} {{ item.lastName }}</h3>
+                        </div>
+                    </a>
+                </div>
+
+                {% set counter = counter + 1 %}
+                {% if counter % 3 == 0 %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        <a class="left carousel-control"
+           href="#carousel-example-captions"
+           role="button"
+           data-slide="prev">
+            <span class="mdi-navigation-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control"
+           href="#carousel-example-captions"
+           role="button"
+           data-slide="next">
+            <span class="mdi-navigation-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>

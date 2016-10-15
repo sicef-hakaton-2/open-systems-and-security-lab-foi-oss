@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_newsfeed" android:icon="@drawable/ic_news_24"
+            android:title="@string/activity_newsfeed_title" />
+        <item android:id="@+id/nav_donations" android:icon="@drawable/ic_donation_24"
+            android:title="@string/activity_cards_title" />
+        <item android:id="@+id/nav_tips" android:icon="@drawable/light_bulb32"
+            android:title="@string/nav_tips" />
+        <item android:id="@+id/nav_legal" android:icon="@drawable/court"
+            android:title="@string/nav_legal" />
+        <item android:id="@+id/nav_identification" android:icon="@drawable/ic_person_24dp"
+            android:title="Identification" />
+    </group>
+
+</menu>

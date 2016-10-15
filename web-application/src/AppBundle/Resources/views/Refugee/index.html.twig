@@ -1,0 +1,130 @@
+{% extends 'AppBundle::baseAdmin.html.twig' %}
+
+    {% block body -%}
+
+        {% embed 'ZantolovAppBundle:Admin/partials:crudHeader.html.twig'  with { ignoreTabs: [""]} %}
+            {% block entityTitle %}
+                Refugees
+            {% endblock %}
+            {% block actionPanel %}
+                <ul class="list-inline list-unstyled">
+                    {% include 'ZantolovAppBundle:SensioGeneratorBundle:partials/CRUD/indexLinks.html.twig' with {
+                    noUlElement: true,
+                    entityPrefix: "admin_refugees."} %}
+                    {#<li>#}
+                    {#<a href="javascript:void(0);" class="selectVisible btn btn-default btn-sm">#}
+                    {#<i class="fa fa-check-square-o"></i>#}
+                    {#{% trans %}Select{% endtrans %}#}
+                    {#</a>#}
+                    {#</li>#}
+                    {#<li>#}
+                    {#<a href="javascript:void(0);" class="deselectSelection btn btn-default btn-sm">#}
+                    {#<i class="fa fa-square-o"></i>#}
+                    {#{% trans %}Deselect{% endtrans %}#}
+                    {#</a>#}
+                    {#</li>#}
+                    {#<li>#}
+                    {#<a href="javascript:void(0);" class="activateSelectedBtn btn btn-default btn-sm">#}
+                    {#<i class="fa fa-plus"></i>#}
+                    {#{% trans %}Activate{% endtrans %}#}
+                    {#</a>#}
+                    {#</li>#}
+                    {#<li>#}
+                    {#<a href="javascript:void(0);" class="deactivateSelectedBtn btn btn-default btn-sm">#}
+                    {#<i class="fa fa-times"></i>#}
+                    {#{% trans %}Deactivate{% endtrans %}#}
+                    {#</a>#}
+                    {#</li>#}
+                    {#<li>#}
+                    {#<a href="javascript:void(0);" data-confirm="Are you sure?"#}
+                    {#class="deleteSelectedBtn btn btn-default btn-sm">#}
+                    {#<i class="fa fa-trash"></i>#}
+                    {#{% trans %}Delete{% endtrans %}#}
+                    {#</a>#}
+                    {#</li>#}
+                </ul>
+            {% endblock %}
+            {% block filterPanel %}
+                <form>
+                    <ul class="list-inline list-unstyled">
+                        <li>
+                            {#<label for="filters[country]">Country</label>#}
+                            {#<select class="form-control onChangeSubmit" name="filters[category]">#}
+                            {#{% for country in countries %}#}
+                            {#<option {{ (filters.country is defined ? (filters.country == country.id ? 'selected="selected': '') : '') }}value="{{ category.id }}">{{ category.name }}</option>#}
+                            {#{% endfor %}#}
+                            {#</select>#}
+                        </li>
+                        <li>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fa fa-filter"></i> {% trans %}Filter{% endtrans %}
+                            </button>
+                            <a href="{{ path('admin_refugees.index') }}" class="btn btn-default">
+                                {% trans %}Reset filters{% endtrans %}</a>
+                        </li>
+                    </ul>
+                </form>
+
+            {% endblock %}
+        {% endembed %}
+
+        <table class="table dataTable">
+            <thead>
+            <tr>
+                {#<th></th>#}
+                <th>Id</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>External ID</th>
+                <th>Birth date</th>
+                <th>Country</th>
+                <th>Active</th>
+                <th>Missing?</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entity in entities %}
+                <tr>
+                    {#<td>#}
+                    {#<input autocomplete="off"#}
+                    {#class="selectCheckbox"#}
+                    {#type="checkbox"#}
+                    {#value="{{ entity.id }}">#}
+                    {#</td>#}
+                    <td>{{ entity.id }}</td>
+                    <td>
+                        <a href="{{ path('admin_refugees.show', { 'id': entity.id }) }}">{{ entity.firstName }}</a>
+                    </td>
+                    <td>{{ entity.lastName }}</td>
+                    <td>{{ entity.externalId }}</td>
+                    <td>{% if entity.birthDate %}{{ entity.birthDate|date(defaultDateTimeFormat) }}{% endif %}</td>
+                    <td>{{ entity.country }}</td>
+                    <td>{{ entity.active|fontAwesome() }}</td>
+                    <td>
+                        <span class="hidden">
+                            missing:{{ entity.isMissing ? 'Yes':'No' }}
+                        </span>
+                        {{ entity.isMissing|fontAwesome() }}</td>
+                    <td>
+                        <ul class="list-inline">
+                            <li>
+                                <a class="btn btn-primary"
+                                   href="{{ path('admin_refugees.show', { 'id': entity.id }) }}">
+                                    show
+                                </a>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary"
+                                   href="{{ path('admin_refugees.edit', { 'id': entity.id }) }}">
+                                    edit
+                                </a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        {% include 'ZantolovAppBundle:SensioGeneratorBundle:partials/CRUD/indexLinks.html.twig' with {entityPrefix: "admin_refugees."} %}        {% endblock %}

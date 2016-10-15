@@ -1,0 +1,86 @@
+{% extends 'AppBundle:Layout:frontAppLayout.html.twig' %}
+
+
+{% block body %}
+    <div class="container-fluid" style="padding-left: ">
+        <div style="background: url(http://yalibnan.com/wp-content/uploads/2014/05/image1.jpg) no-repeat center center fixed;width:100%;min-height: 280px"></div>
+    </div>
+
+    <div class="container text-center" id="staticPage">
+        <div class="col-md-10 col-centered">
+            <div class="well">
+                <h2>We can help refugees!</h2>
+
+                <p>
+                    If you can provide refugees with services, job, accomodation, food, supplies or anything, Borderless
+                    is
+                    place for you!
+                </p>
+
+                <div class="col-md-5" style="margin: auto; float:none">
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label for="title">Tell us how you want to help?</label>
+                            <input required name="title" type="text" class="form-control" required id="title"
+                                   placeholder="First title">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="description">Describe it</label>
+                <textarea required name="description" type="text" class="form-control" required id="description"
+                          placeholder="Description"></textarea>
+                        </div>
+
+                        <input type="hidden" name="lat" id="lat">
+                        <input type="hidden" name="lng" id="lng">
+
+                        <div id="map" style="margin: 20px 0; width:100%; min-height: 300px"></div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            var functions = window.functions || [];
+            functions.push(function () {
+                var markerOptions = {
+                    draggable: true,
+                    lat: 44.555208,
+                    lng: 19.628754,
+                    dragend: function (e) {
+                        var lat = e.latLng.lat();
+                        var lng = e.latLng.lng();
+                        $("#lat").val(lat);
+                        $("#lng").val(lng);
+                    }
+                };
+
+                $(document).ready(function () {
+
+                    var map = new GMaps({
+                        scrollwheel: false,
+                        div: '#map',
+                        zoom: 5,
+                        lat: 44.555208,
+                        lng: 19.628754
+                    });
+
+                    var options = markerOptions;
+                    marker = map.addMarker(markerOptions);
+
+
+                    map.on("click", function (e) {
+                        var lat = e.latLng.lat();
+                        var lng = e.latLng.lng();
+                        $("#lat").val(lat);
+                        $("#lng").val(lng);
+
+                        marker.setPosition(new google.maps.LatLng(lat, lng));
+                    });
+                });
+            });
+        </script>
+    </div>
+{% endblock %}

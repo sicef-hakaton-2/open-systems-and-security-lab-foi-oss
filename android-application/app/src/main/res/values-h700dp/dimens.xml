@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="recycler_height">320dp</dimen>
+    <dimen name="recycler_image_size">264dp</dimen>
+
+</resources>

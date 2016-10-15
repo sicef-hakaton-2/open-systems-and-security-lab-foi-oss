@@ -1,0 +1,120 @@
+{% extends 'AppBundle:Layout:frontAppLayout.html.twig' %}
+
+
+{% block customStylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('bundles/zantolovapp/css/datetime-picker/jquery.datetimepicker.css') }}" rel="stylesheet"
+          xmlns="http://www.w3.org/1999/html">
+{% endblock %}
+
+{% block customJsPlugins -%}
+    {{ parent() }}
+    <script src="{{ asset('bundles/zantolovapp/js/datetime-picker/jquery.datetimepicker.js') }}"></script>
+
+    <script>
+        var functions = window.functions || [];
+        functions.push(function (application) {
+            application.initDatetimePicker();
+        });
+
+    </script>
+{%- endblock %}
+
+
+{% block body %}
+    <div class="container text-center" id="staticPage">
+
+        <div class="col-md-5" style="margin: auto; float:none">
+            <div class="well">
+                <form action="" method="POST">
+                    <input type="hidden" value="{{ type }}" name="type">
+                    {% if type == 'refugee' %}
+
+                        <h3>Refugee</h3>
+
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input name="firstName"
+                                   type="text"
+                                   class="form-control"
+                                   required
+                                   id="firstName"
+                                   placeholder="First Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input name="lastName"
+                                   type="text"
+                                   class="form-control"
+                                   required
+                                   id="lastName"
+                                   placeholder="Last Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <input name="country"
+                                   type="text"
+                                   class="form-control"
+                                   required
+                                   id="country"
+                                   placeholder="Country">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="birthDate">Birth date</label>
+                            <input name="birthDate"
+                                   type="text"
+                                   class="form-control datetimepicker"
+                                   required
+                                   id="birthDate"
+                                   placeholder="Birth date">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+
+
+                    {% elseif type == 'person' %}
+                        <h3>Citizen</h3>
+
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input name="firstName"
+                                   type="text"
+                                   class="form-control"
+                                   required
+                                   id="firstName"
+                                   placeholder="First Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input name="lastName"
+                                   type="text"
+                                   class="form-control"
+                                   required
+                                   id="lastName"
+                                   placeholder="Last Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <input name="country"
+                                   type="text"
+                                   class="form-control"
+                                   required
+                                   id="country"
+                                   placeholder="Country">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Submit</button>
+
+
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

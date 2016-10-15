@@ -1,0 +1,7 @@
+{% extends 'AppBundle:Layout:frontAppLayout.html.twig' %}
+
+{% block navigation %}{% endblock %}
+{% block body %}
+    {{ render(controller('AppBundle:Site:missing', {limit: 9})) }}
+{% endblock %}
+{% block footer %}{% endblock %}

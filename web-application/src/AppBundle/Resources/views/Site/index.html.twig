@@ -1,0 +1,143 @@
+{% extends 'AppBundle:Layout:frontAppLayout.html.twig' %}
+
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4 col-sm-12">
+                <ul class="newsList">
+                    {% for post in posts %}
+                        <li class="well infobox wow fadeInUp">
+                            <h2>
+                                <a href="{{ url('site.post', {slug: post.slug}) }}" class="text-center">
+                                    {{ post.title }}
+                                </a>
+                            </h2>
+
+                            {% if post.image is defined and post.image is not null %}
+                                <div class="postLeadingImage">
+                                    <a href="{{ url('site.post', {slug: post.slug}) }}">
+
+                                        <img class="newsImage img-responsive"
+                                             src="{{ zantolov_uploader_asset(post.image, 'imageFile', null, false) | imagine_filter('postLeadingImage') }}"/>
+                                    </a>
+                                </div>
+                            {% endif %}
+                            <hr>
+                            {% if post.categories is defined and post.categories is not null %}
+                                {% for cat in post.categories %}
+                                    <a href="{{ url('site.category', {slug: cat.slug}) }}" class="badge">
+                                        {{ cat.name }}
+                                    </a>
+                                {% endfor %}
+                            {% endif %}
+
+
+                            <p>{{ post.intro|raw }}</p>
+                            <hr>
+                            <div class="text-center">
+                                <ul class="list-unstyled list-inline text-center">
+                                    <li>
+                                        <a href="http://www.facebook.com/share.php?u={{ url('site.post', {slug: post.slug}) }}"
+                                           target="_blank">
+                                            <i class="fa fa-2x fa-facebook"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="http://twitter.com/share?text={{ post.title }}&url={{ url('site.post', {slug: post.slug}) }}"
+                                           target="_blank">
+                                            <i class="fa fa-2x fa-twitter"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('site.post', {slug: post.slug}) }}">
+                                            <i class="fa fa-arrow-right fa-2x"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="col-md-8 col-sm-12">
+
+                <div id="homepageMapContainer" class="hidden-xs hidden-sm well wow fadeInUp">
+                    <div id="homepageMap"></div>
+                    <script>
+                        var mapData = {
+                            offers: {{ offers|json_encode|raw }},
+                            requests: {{ requests|json_encode|raw }},
+                        }
+                    </script>
+                </div>
+
+                <div class="well text-center wow fadeInUp">
+                    <div id="emergency">
+                        <div class="col-md-4">
+                            <a class="phoneIcon" href="tel:+911">
+                                <i class="fa fa-phone fa-2x"></i>
+                            </a>
+                        </div>
+                        <div class="col-md-4">
+                            <h3>Call Emergency number </h3>
+                        </div>
+                        <div class="col-md-4">
+                            <a class="number112" href="tel:+911">112</a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="well wow fadeInUp">
+                    <h1 class="text-center">
+                        Have you seen these people?
+                    </h1>
+                    {{ render(controller('AppBundle:Site:missing', {limit: 9})) }}
+                </div>
+
+                <div class="well wow fadeInUp">
+                    <div id="weather"></div>
+                </div>
+
+
+                <div class="wow fadeInUp">
+                    <div class="col-md-6">
+                        <div class="well">
+                            <a href="{{ url('info-tips') }}">
+
+                                <h1 class="text-center">Legal advices</h1>
+                                <img class="img-responsive" src="{{ asset('bundles/app/img/legal1.jpg') }}">
+                                <hr>
+                                Read more
+                                <i class="fa fa-arrow-right fa-2x pull-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="well">
+                            <a href="{{ url('info-tips') }}">
+
+                                <h1 class="text-center">Recommendations</h1>
+                                <img class="img-responsive" src="{{ asset('bundles/app/img/tips1.jpeg') }}">
+                                <hr>
+                                Read more
+                                <i class="fa fa-arrow-right fa-2x pull-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 text-center wow fadeInUp">
+                    <a id="singlebutton"
+                       name="singlebutton"
+                       class="btn btn-material-red btn-raised"> Report information on 112!
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

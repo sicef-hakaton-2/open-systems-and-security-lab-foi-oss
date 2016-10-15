@@ -1,0 +1,32 @@
+{% extends 'AppBundle::baseAdmin.html.twig' %}
+
+    {% block body -%}
+        {% embed 'ZantolovAppBundle:Admin/partials:crudHeader.html.twig'  with { ignoreTabs: ["filters"]} %}
+            {% block entityTitle %}
+                Offer Edit
+            {% endblock %}
+            {% block actionPanel %}
+                <ul class="list-inline">
+                    <li>
+                        <a onclick="$('#appbundle_offer_submit').click();" href="javascript:void(0)"
+                           class="btn btn-success btn-sm">
+                            <i class="fa fa-check"></i> Update
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-primary btn-sm" href="{{ path('admin_offer.index') }}">
+                            <i class="fa fa-arrow-left"></i> Back to the list
+                        </a>
+                    </li>
+                    <li>
+                        <a class="btn btn-primary btn-sm" href="{{ path('admin_offer.show', {id:entity.id}) }}">
+                            <i class="fa fa-arrow-left"></i> Back to the post
+                        </a>
+                    </li>
+                    <li>{{ form(delete_form) }}</li>
+                </ul>
+            {% endblock %}
+        {% endembed %}
+        {{ form(edit_form) }}
+
+    {% endblock %}
